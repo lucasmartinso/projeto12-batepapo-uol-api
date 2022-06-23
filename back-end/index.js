@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 const app = express(); 
 app.use(cors()); 
 app.use(express.json()); 
-dotenv.config();   
+dotenv.config(); 
 
 const mongoClient = new MongoClient("mongodb://localhost:27017"); 
 let db; 
