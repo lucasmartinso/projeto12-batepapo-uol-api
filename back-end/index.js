@@ -3,18 +3,19 @@ import chalk from "chalk";
 import cors from 'cors'; 
 import { MongoClient } from "mongodb"; 
 import 'dayjs/locale/pt-br.js'; 
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'; 
+import dotenv from "dotenv";
 
 const app = express(); 
 app.use(cors()); 
-app.use(express.json());   
+app.use(express.json()); 
+dotenv.config();   
 
 const mongoClient = new MongoClient("mongodb://localhost:27017"); 
 let db; 
 
 mongoClient.connect().then(() => { 
-    db = mongoClient.db("Banco de dados API Bate Papo UOL"); 
-    console.log(db);
+    db = mongoClient.db(process.env.DATABASE_NAME); 
 }); 
 
 const username = [];  
@@ -62,6 +63,6 @@ app.post("/messages", (request,response) => {
     
 });
 
-app.listen(5000, () => { 
-    console.log(chalk.blue.bold("\nFuncionando na 5000"));
+app.listen(process.env.PORT, () => { 
+    console.log(chalk.blue.bold(`\nFuncionando na ${process.env.PORT}`));
 })
